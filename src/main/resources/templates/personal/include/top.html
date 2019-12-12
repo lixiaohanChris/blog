@@ -1,0 +1,45 @@
+
+<nav class="top" th:fragment="html">
+
+	<style>
+		.topTab{
+			margin-left:50%;
+		}
+		.menu{
+			background-color:black;
+			width: 100%;
+		}
+		.tab a{
+			color: orange;
+		}
+		#userInfo{
+			width: 20%;
+			float: left;
+			color: orange;
+			line-height: 280%;
+			margin-left:20%;
+		}
+		.userName{
+			float: left;
+			width: 20%;
+			white-space:nowrap;
+		}
+	</style>
+	<div class="menu bg-info" align="center">
+        <!--
+            router-link 相当于就是超链
+            to 相当于就是 href
+        -->
+        <div id="userInfo">
+        	<div class="userName">李晓晗的博客 Java Coder</div>
+        </div>
+        <div class="topTab">
+        	<ul class="nav nav-pills">
+        		<li class="tab"><a href="#" data-toggle="tab">博客</a></li>
+        		<li class="tab"><a href="#" data-toggle="tab">分类</a></li>
+        		<li class="tab"><a href="#" data-toggle="tab">标签</a></li>
+        		<li class="tab"><a href="#" data-toggle="tab">七大罪</a></li>
+        	</ul>
+        </div>
+    </div>
+</nav>
