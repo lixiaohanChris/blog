@@ -13,5 +13,8 @@ public class PersonalPageController {
 	public String home(){
 		return "redirect:listBlog";
 	}
-	
+	@GetMapping(value="/test")
+	public String test(){
+		return "personal/blogText";
+	}
 }

@@ -1,0 +1,28 @@
+<nav class="text" th:fragment="html">   
+<!-- 因为我们使用了dark主题，所以在容器div上加上dark的主题类，实现我们自定义的代码样式 -->
+<link rel="stylesheet" href="editor/css/style.css"/>
+<div class="content editormd-preview-theme" id="content"><div class="markdown-toc editormd-markdown-toc">[TOC]</div><h4 id="h4-disabled-options"><a name="Disabled options" class="reference-link"></a><span class="header-link octicon octicon-link"></span>Disabled options</h4><ul>
+<li>TeX (Based on KaTeX);</li><li>Emoji;</li><li>Task lists;</li><li>HTML tags decode;</li><li>Flowchart and Sequence Diagram;</li></ul>
+<h4 id="h4-editor-md-directory"><a name="Editor.md directory" class="reference-link"></a><span class="header-link octicon octicon-link"></span>Editor.md directory</h4><pre><code>editor.md/
+        lib/
+        css/
+        scss/
+        tests/
+        fonts/
+        images/
+        plugins/
+        examples/
+        languages/
+        editormd.js
+        ...
+</code></pre><pre><code class="lang-html">&lt;!-- English --&gt;
+&lt;script src=&quot;../dist/js/languages/en.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- 繁體中文 --&gt;
+&lt;script src=&quot;../dist/js/languages/zh-tw.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+</div>
+<script type="text/javascript">
+    editormd.markdownToHTML("content");
+</script>
+</nav>

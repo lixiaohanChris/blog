@@ -8,9 +8,22 @@ public class Blog {
 	private int id;
 	private String title;
 	private Category category;
+	private String text_content;
+	private String content;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date createtime;
-
+	public String getText_content() {
+		return text_content;
+	}
+	public void setText_content(String text_content) {
+		this.text_content = text_content;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public Date getCreatetime() {
 		return createtime;
 	}
@@ -37,6 +50,7 @@ public class Blog {
 	}
 	@Override
 	public String toString() {
-		return "Blog [id=" + id + ", title=" + title + ", category=" + category + ", createtime=" + createtime + "]";
+		return "Blog [id=" + id + ", title=" + title + ", category=" + category + ", text_content=" + text_content
+				+ ", content=" + content + ", createtime=" + createtime + "]";
 	}
 }
