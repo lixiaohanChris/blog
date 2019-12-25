@@ -1,28 +1,144 @@
 <nav class="text" th:fragment="html">   
 <!-- 因为我们使用了dark主题，所以在容器div上加上dark的主题类，实现我们自定义的代码样式 -->
 <link rel="stylesheet" href="editor/css/style.css"/>
-<div class="content editormd-preview-theme" id="content"><div class="markdown-toc editormd-markdown-toc">[TOC]</div><h4 id="h4-disabled-options"><a name="Disabled options" class="reference-link"></a><span class="header-link octicon octicon-link"></span>Disabled options</h4><ul>
-<li>TeX (Based on KaTeX);</li><li>Emoji;</li><li>Task lists;</li><li>HTML tags decode;</li><li>Flowchart and Sequence Diagram;</li></ul>
-<h4 id="h4-editor-md-directory"><a name="Editor.md directory" class="reference-link"></a><span class="header-link octicon octicon-link"></span>Editor.md directory</h4><pre><code>editor.md/
-        lib/
-        css/
-        scss/
-        tests/
-        fonts/
-        images/
-        plugins/
-        examples/
-        languages/
-        editormd.js
-        ...
-</code></pre><pre><code class="lang-html">&lt;!-- English --&gt;
-&lt;script src=&quot;../dist/js/languages/en.js&quot;&gt;&lt;/script&gt;
+<link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon"/>
+<style>
+	#sidebar {
+	    width: 400px;
+	    height: 100%;
+	    position: fixed;
+	    top: 0;
+	    right: 0;
+	    overflow: hidden;
+	    background: #fff;
+	    z-index: 100;
+	    padding: 18px; 
+	    border: 1px solid #ddd;
+	    border-top: none;
+	    border-bottom: none;
+	}
+	.labels{
+        float: left;
+        margin:2px 2px 2px 2px;
+        padding:10px 3px 10px 3px;
+    }
+    #layout{
+    	width: 60%;
+    	margin:10px 10px 10px 20%;
+    	background: #fff;
+    }
+    #title{
+    	padding:10px 10px 10px 10px;
+    }
+    .head{
+    	margin:10px 10px 10px 10px;
+    }
+</style>
 
-&lt;!-- 繁體中文 --&gt;
-&lt;script src=&quot;../dist/js/languages/zh-tw.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-</div>
+	<div id="layout">
+		<div id="app">
+			<div class = head>
+				<h1 id="title">{{blog4Update.title}}</h1>
+				<div class="labels"><span class="label label-info">{{blog4Update.createtime}}</span></div>
+				<div class="labels"><span class="label label-success">{{blog4Update.category.name}}</span></div>
+				<div v-for="tagItem in blog4Update.tagItems" class="labels"><span class="label label-warning">{{tagItem.tag.name}}</span></div>
+				<br/>
+			</div>
+			<div id="test-editormd-view2">			
+				<textarea id="append-test" style="display: none;">{{blog4Update.text_content}}</textarea>
+			</div>
+		</div>
+	</div>
+
+	</div>
+	<script type="text/javascript">
+		//获取地址栏参数的函数
+		function getUrlParms(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if (r != null)
+				return unescape(r[2]);
+			return null;
+		}
+
+		var data4Vue = {
+			blogs : [],
+			blog4Update : {
+				id : 0,
+				title : ''
+			}
+		};
+
+		//ViewModel
+		var vue = new Vue({
+			el : '#app',
+			data : data4Vue,
+			mounted : function() { //mounted　表示这个 Vue 对象加载成功了
+				this.get();
+				editormd.markdownToHTML("content");
+			},
+			methods : {
+				get : function() {
+					var id = getUrlParms("id");
+					var url = "blogs/" + id;
+					console.log(url);
+					axios.get(url).then(function(response) {
+						vue.blog4Update = response.data;
+					})
+				},
+				cancel : function() {
+					location.href = "listHero";
+				}
+			}
+		});
+	</script>
+
+<script src="editor/lib/marked.min.js"></script>
+<script src="editor/lib/prettify.min.js"></script>        
+<script src="editor/lib/raphael.min.js"></script>
+<script src="editor/lib/underscore.min.js"></script>
+<script src="editor/lib/sequence-diagram.min.js"></script>
+<script src="editor/lib/flowchart.min.js"></script>
+<script src="editor/lib/jquery.flowchart.min.js"></script>
+
 <script type="text/javascript">
-    editormd.markdownToHTML("content");
+    $(function() {
+        var testEditormdView, testEditormdView2;
+        $.get("test.md", function(markdown) {
+            
+			testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+                markdown        : markdown ,//+ "\r\n" + $("#append-test").text(),
+                //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                //toc             : false,
+                tocm            : true,    // Using [TOCM]
+                //tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+                //gfm             : false,
+                //tocDropdown     : true,
+                // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+                flowChart       : true,  // 默认不解析
+                sequenceDiagram : true,  // 默认不解析
+            });
+            
+            //console.log("返回一个 jQuery 实例 =>", testEditormdView);
+            
+            // 获取Markdown源码
+            //console.log(testEditormdView.getMarkdown());
+            
+            //alert(testEditormdView.getMarkdown());
+        });
+            
+        testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+            htmlDecode      : "style,script,iframe,nav",  // you can filter tags decode
+            emoji           : true,
+            taskList        : true,
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true,  // 默认不解析
+        });
+    });
 </script>
 </nav>

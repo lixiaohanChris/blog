@@ -24,11 +24,19 @@
         	padding:10px 10px 10px 10px;
         	border:1px solid #F2F1D7;
         	margin:-1px;
+        	height: 100px;        	
         }
         .labels{
         	float: left;
         	margin:2px 2px 2px 2px;
         }
+        .title a{
+        	text-decoration: none;
+        	cursor:pointer;
+        }
+ 		.title a:visited {color: orange}
+		.title a:hover {color: green}
+  		.title a:active {color: pink}
     </style>
     <script>
         $(function(){
@@ -43,10 +51,11 @@
 			<h1>Welcome</h1>
 		</div>
 		<div v-for="blog in blogs" class="blog">
-			<div class = title><h2>{{blog.title}}</h2></div>
+			<div class ="title"><h2><a :href="'textBlog?id='+blog.id">{{blog.title}}</h2></a></div>
 			
 			<div class="labels"><span class="label label-info">{{blog.createtime}}</span></div>
 			<div class="labels"><span class="label label-success">{{blog.category.name}}</span></div>
+			<div v-for="tagItem in blog.tagItems" class="labels"><span class="label label-warning">{{tagItem.tag.name}}</span></div>
 		</div> 
 		<div id="pagination" class="blog">
 		    <ul class="pagination">
@@ -85,8 +94,7 @@
                 })    
             },         
             add: function (event) {
-                var url = "blogs";
-                 
+                var url = "blogs";            
                 axios.post(url,this.hero4Add).then(function(response){
                     vue.list(1);
                     vue.blog4Add = { id: 0, title: '',}

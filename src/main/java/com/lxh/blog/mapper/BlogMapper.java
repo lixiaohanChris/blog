@@ -13,6 +13,8 @@ public interface BlogMapper {
     public void delete(int id);
          
     public Blog get(int id);
+    
+    public Blog getContent(int id);
        
     public int update(Blog blog); 
          

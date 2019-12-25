@@ -1,6 +1,7 @@
 package com.lxh.blog.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -10,6 +11,13 @@ public class Blog {
 	private Category category;
 	private String text_content;
 	private String content;
+	private List<TagItem> tagItems;
+	public List<TagItem> getTagItems() {
+		return tagItems;
+	}
+	public void setTagItems(List<TagItem> tagItems) {
+		this.tagItems = tagItems;
+	}
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date createtime;
 	public String getText_content() {
@@ -51,6 +59,6 @@ public class Blog {
 	@Override
 	public String toString() {
 		return "Blog [id=" + id + ", title=" + title + ", category=" + category + ", text_content=" + text_content
-				+ ", content=" + content + ", createtime=" + createtime + "]";
+				+ ", content=" + content + ", tagItems=" + tagItems + ", createtime=" + createtime + "]";
 	}
 }

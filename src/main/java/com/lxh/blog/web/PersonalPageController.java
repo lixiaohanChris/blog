@@ -15,6 +15,6 @@ public class PersonalPageController {
 	}
 	@GetMapping(value="/test")
 	public String test(){
-		return "personal/blogText";
+		return "personal/test";
 	}
 }

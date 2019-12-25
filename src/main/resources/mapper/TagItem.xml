@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+    <mapper namespace="com.lxh.blog.mapper.TagItemMapper">
+    	<resultMap type="TagItem" id="tagItemBean">
+            <id column="id" property="id" />
+            <association property="tag" javaType="Tag">
+                <id column="tid" property="id"/>
+                <result column="tname" property="name"/>
+            </association>
+        </resultMap>
+        <insert id="add" parameterType="TagItem" >
+            insert into tag_item ( bid,tid ) values (#{bid},#{tid})  
+        </insert>
+          
+        <delete id="delete" parameterType="TagItem" >
+            delete from tag_item where id= #{id} 
+        </delete>
+          
+        <select id="get" parameterType="_int" resultType="TagItem">
+            select * from   tag_item  where id= #{id}  
+        </select>
+  
+        <select id="list" parameterType="_int" resultMap="tagItemBean">
+            select ti.id id, t.name tname
+            from tag_item ti 
+            left join tag t on t.id = ti.tid 
+            where ti.bid= #{bid} 
+        </select> 
+    </mapper>

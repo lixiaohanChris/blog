@@ -16,6 +16,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lxh.blog.domain.Editor;
 import com.lxh.blog.pojo.Blog;
+import com.lxh.blog.pojo.Hero;
 import com.lxh.blog.service.BlogService;
 import com.lxh.blog.service.EditorService;
 
@@ -30,14 +31,30 @@ public class BlogController {
         ModelAndView mv = new ModelAndView("/personal/home");
         return mv;
     }
+    @RequestMapping(value="/textBlog", method=RequestMethod.GET)
+    public ModelAndView textBlog(){
+        ModelAndView mv = new ModelAndView("/personal/blogText");
+        return mv;
+    }
     
     /*restful 部分*/
     @GetMapping("/blogs")
     public PageInfo<Blog> list(@RequestParam(value = "start", defaultValue = "1") int start,@RequestParam(value = "size", defaultValue = "5") int size) throws Exception {
         PageHelper.startPage(start,size,"id desc");
         List<Blog> bs=blogService.list();
+        for(Blog b:bs){
+        	System.out.println(b);
+        }
         System.out.println(bs.size()); 
         PageInfo<Blog> page = new PageInfo<>(bs,5); //5表示导航分页最多有5个，像 [1,2,3,4,5] 这样 
         return page;
+    }
+    
+    @GetMapping("/blogs/{id}")
+    public Blog get(@PathVariable("id") int id) throws Exception {
+        System.out.println(id);
+        Blog b=blogService.get(id);
+        System.out.println(b);
+        return b;
     }
 }

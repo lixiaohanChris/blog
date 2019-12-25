@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lxh.blog.mapper.BlogMapper;
+import com.lxh.blog.mapper.TagItemMapper;
 import com.lxh.blog.pojo.Blog;
 import com.lxh.blog.service.BlogService;
 
@@ -13,6 +14,7 @@ import com.lxh.blog.service.BlogService;
 public class BlogServiceImpl implements BlogService{
      
     @Autowired BlogMapper blogMapper;
+    @Autowired TagItemMapper tagItemMapper;
  
     @Override
     public void delete(int id) {
@@ -26,19 +28,33 @@ public class BlogServiceImpl implements BlogService{
  
     @Override
     public List<Blog> list() {
-        return blogMapper.list();
+    	List<Blog> listBlog = blogMapper.list();
+    	for(Blog b:listBlog){
+    		b.setTagItems(tagItemMapper.list(b.getId()));
+    	}
+    	return listBlog;
     }
 
 	@Override
-	public int add(Blog hero) {
+	public int add(Blog blog) {
 		// TODO Auto-generated method stub
-		return blogMapper.add(hero);
+		return blogMapper.add(blog);
 	}
 
 	@Override
 	public Blog get(int id) {
 		// TODO Auto-generated method stub
-		return blogMapper.get(id);
+		Blog b = blogMapper.get(id);
+		b.setTagItems(tagItemMapper.list(b.getId()));
+		
+		return b;
+	}
+	
+	@Override
+	public Blog getContent(int id) {
+		// TODO Auto-generated method stub
+		Blog b = blogMapper.getContent(id);
+		return b;
 	}
  
 }
