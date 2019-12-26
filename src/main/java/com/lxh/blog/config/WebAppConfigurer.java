@@ -1,5 +1,7 @@
 package com.lxh.blog.config;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -18,8 +20,7 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
     /**
      * 在配置文件中配置的文件保存路径
      */
-    @Value("${img.location}")
-    private String folder;
+    private String folder = new File("src/main/webapp/img/upload").getAbsolutePath();
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

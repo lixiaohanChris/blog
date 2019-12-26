@@ -34,8 +34,8 @@ public class FileController {
     /**
      * 在配置文件中配置的文件保存路径
      */
-    @Value("${img.location}")
-    private String folder;
+
+    private String folder = new File("src/main/webapp/img/upload").getAbsolutePath();
 
     @PostMapping
     public FileInfo upload(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile file) throws Exception {
@@ -44,11 +44,10 @@ public class FileController {
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         String newFileName = new Date().getTime() + "." + suffix;
-
         File localFile = new File(folder, newFileName);
         file.transferTo(localFile);
         log.info(localFile.getAbsolutePath());
-        return new FileInfo(1, "上传成功", request.getRequestURL().substring(0,request.getRequestURL().lastIndexOf("/"))+"/upload/"+newFileName);
+        return new FileInfo(1, "上传成功", request.getRequestURL().substring(0,request.getRequestURL().lastIndexOf("/"))+"/img/upload/"+newFileName);
     }
 
     @GetMapping("/{id}")
