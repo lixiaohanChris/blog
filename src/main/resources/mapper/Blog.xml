@@ -9,12 +9,29 @@
             <result column="title" property="title" />
      		<result column="createtime" property="createtime" />
      		<result column="text_content" property="text_content" />
-     		<result column="content" property="content" />
             <!-- property: 指的是属性名称, javaType：指的是属性的类型 -->
             <association property="category" javaType="Category">
                 <id column="cid" property="id"/>
                 <result column="cname" property="name"/>
             </association>
+        </resultMap>
+        <resultMap type="Blog" id="blogBeanPlus">
+            <id column="id" property="id" />
+            <result column="title" property="title" />
+     		<result column="createtime" property="createtime" />
+     		<result column="text_content" property="text_content" />
+            <!-- property: 指的是属性名称, javaType：指的是属性的类型 -->
+            <association property="category" javaType="Category">
+                <id column="cid" property="id"/>
+                <result column="cname" property="name"/>
+            </association>
+            <collection property="tagItems" ofType="TagItem">
+                <id column="tiid" property="id" />
+                <association property="tag" javaType="Tag">
+                    <id column="tid" property="id"/>
+                    <result column="tname" property="name"/>
+                </association>               
+            </collection>
         </resultMap>
         <insert id="add" parameterType="Blog" >
             insert into blog ( title ) values (#{title})  
@@ -24,16 +41,14 @@
             delete from blog where id= #{id} 
         </delete>
           
-        <select id="get" parameterType="_int" resultMap="blogBean">
-            select b.id id, c.name cname, b.title title,b.createtime createtime,b.text_content text_content,b.content content
+        <select id="get" parameterType="_int" resultMap="blogBeanPlus">
+            select b.id id, c.name cname, b.title title,b.createtime createtime,b.text_content text_content,t.name tname
             from blog b 
             left join category c on c.id = b.cid
+            left join tag_item ti on ti.bid = b.id
+            left join tag t on ti.tid = t.id
             where b.id= #{id}  
         </select>
-        <select id="getContent" parameterType="_int" resultType="Blog">
-            select content from blog where id= #{id}
-        </select>
-  
         <update id="update" parameterType="Blog" >
             update blog set title=#{title} where id=#{id}  
         </update>

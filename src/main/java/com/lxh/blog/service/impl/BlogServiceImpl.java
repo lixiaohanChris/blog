@@ -44,17 +44,7 @@ public class BlogServiceImpl implements BlogService{
 	@Override
 	public Blog get(int id) {
 		// TODO Auto-generated method stub
-		Blog b = blogMapper.get(id);
-		b.setTagItems(tagItemMapper.list(b.getId()));
-		
-		return b;
-	}
-	
-	@Override
-	public Blog getContent(int id) {
-		// TODO Auto-generated method stub
-		Blog b = blogMapper.getContent(id);
-		return b;
+		return blogMapper.get(id);
 	}
  
 }

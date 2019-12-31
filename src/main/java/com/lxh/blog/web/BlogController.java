@@ -1,8 +1,6 @@
 package com.lxh.blog.web;
 
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,17 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lxh.blog.domain.Editor;
 import com.lxh.blog.pojo.Blog;
-import com.lxh.blog.pojo.Hero;
 import com.lxh.blog.service.BlogService;
-import com.lxh.blog.service.EditorService;
+import com.lxh.blog.service.CategoryService;
 
 @RestController
 public class BlogController {
 	@Autowired BlogService blogService;
-    @Autowired EditorService editorService;
-	
+
     /*页面跳转 部分*/
     @RequestMapping(value="/listBlog", method=RequestMethod.GET)
     public ModelAndView listBlog(){

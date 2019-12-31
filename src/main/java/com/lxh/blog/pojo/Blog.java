@@ -10,7 +10,6 @@ public class Blog {
 	private String title;
 	private Category category;
 	private String text_content;
-	private String content;
 	private List<TagItem> tagItems;
 	public List<TagItem> getTagItems() {
 		return tagItems;
@@ -25,12 +24,6 @@ public class Blog {
 	}
 	public void setText_content(String text_content) {
 		this.text_content = text_content;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
 	}
 	public Date getCreatetime() {
 		return createtime;
@@ -59,6 +52,6 @@ public class Blog {
 	@Override
 	public String toString() {
 		return "Blog [id=" + id + ", title=" + title + ", category=" + category + ", text_content=" + text_content
-				+ ", content=" + content + ", tagItems=" + tagItems + ", createtime=" + createtime + "]";
+				+ ", tagItems=" + tagItems + ", createtime=" + createtime + "]";
 	}
 }
