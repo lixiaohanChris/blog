@@ -1,7 +1,7 @@
 <nav class="categorys" th:fragment="html">   
 	<style>
 		#categorys{
-			width: 20%;
+			width: 15%;
 			background-color: #FBFBEA;
 			float: left;
 			box-shadow:5px 5px 5px #888888,5px -5px 5px #888888,-5px 5px 5px #888888,-5px -5px 5px #888888;
@@ -9,15 +9,41 @@
 		}                    
         .category{
         	padding:10px 10px 10px 10px;
-        	border:1px solid #F2F1D7;
         	margin:-1px;
-        	height: 100px;        	
+        	height: 30px;        	
         }
-
+		.badge{
+			float: right;
+		}
     </style>
 	<div id="categorys">
-		<div class="category">
-			<h1>Welcome</h1>
-		</div>      
+		<ul>
+			<li v-for="category in categorys" class="category">
+			{{category.name}}<span class="badge">{{category.count}}</span>
+			</li>  
+		</ul>    
 	</div>
+	<script type="text/javascript">
+    var data4Vue = {
+            categorys: [],
+            category4Add: {},
+    };
+ 
+    //ViewModel
+    var vue2 = new Vue({
+        el: '#categorys',
+        data: data4Vue,
+        mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+            this.list(1);
+        },       
+        methods: {     
+            list:function(start){
+                var url = "categorys";
+                axios.get(url).then(function(response) {
+                    vue2.categorys = response.data;
+                })    
+            },         
+        }
+    });
+    </script>
 </nav>

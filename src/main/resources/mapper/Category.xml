@@ -20,6 +20,7 @@
             update category set name=#{name}, hp = #{hp} where id=#{id}  
         </update>
         <select id="list" resultType="Category">
-            select * from   category    
+            select c.id id,c.name name,count(*) count
+            from category c left join blog b on b.cid = c.id group by c.name 
         </select> 
     </mapper>

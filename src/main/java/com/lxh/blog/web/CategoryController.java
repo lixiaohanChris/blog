@@ -13,16 +13,16 @@ import com.lxh.blog.service.CategoryService;
 @RestController
 public class CategoryController {
 	
-//	@Autowired CategoryService categoryService;
+	@Autowired CategoryService categoryService;
 	@Autowired BlogService blogService;
 	
-//    @GetMapping("/categorys")
-//    public List<Category> list() throws Exception {
-//        List<Category> cs=categoryService.list();
-//        for(Category c:cs){
-//        	System.out.println(c);
-//        }
-//        return cs;
-//    }
+    @GetMapping("/categorys")
+    public List<Category> list() throws Exception {
+        List<Category> cs=categoryService.list();
+        for(Category c:cs){
+        	System.out.println(c);
+        }
+        return cs;
+    }
 
 }
