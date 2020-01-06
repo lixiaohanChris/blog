@@ -14,6 +14,12 @@ public class Category {
 	public String toString() {
 		return "Category [id=" + id + ", name=" + name + ", count=" + count + "]";
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getCount() {
 		return count;
 	}

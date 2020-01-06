@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+    <mapper namespace="com.lxh.blog.mapper.TagMapper">
+        <insert id="add" parameterType="Tag" >
+            insert into tag ( name,hp ) values (#{name},#{hp})  
+        </insert>
+          
+        <delete id="delete" parameterType="Tag" >
+            delete from tag where id= #{id} 
+        </delete>
+          
+        <select id="get" parameterType="_int" resultType="Tag">
+            select * from  tag  where id= #{id}  
+        </select>
+  
+        <update id="update" parameterType="Tag" >
+            update tag set name=#{name}, hp = #{hp} where id=#{id}  
+        </update>
+        <select id="list" resultType="Tag">
+        </select> 
+    </mapper>

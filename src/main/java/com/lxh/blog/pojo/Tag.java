@@ -4,7 +4,14 @@ public class Tag {
 	
 	private int id;
 	private String name;
+	private int count;
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getId() {
 		return id;
 	}
@@ -19,6 +26,6 @@ public class Tag {
 	}
 	@Override
 	public String toString() {
-		return "Tag [id=" + id + ", name=" + name + "]";
+		return "Tag [id=" + id + ", name=" + name + ", count=" + count + "]";
 	}
 }
