@@ -14,7 +14,6 @@ import com.lxh.blog.service.CategoryService;
 public class CategoryController {
 	
 	@Autowired CategoryService categoryService;
-	@Autowired BlogService blogService;
 	
     @GetMapping("/categorys")
     public List<Category> list() throws Exception {

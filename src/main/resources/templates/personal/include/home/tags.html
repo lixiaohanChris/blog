@@ -1,46 +1,40 @@
-<nav class="categorys" th:fragment="html">   
+<nav class="tags" th:fragment="html">   
 	<style>
-		#categorys{
+		#tags{
 			width: 100%;
 			background-color: #FBFBEA;
 			box-shadow:5px 5px 5px #888888,5px -5px 5px #888888,-5px 5px 5px #888888,-5px -5px 5px #888888;
 			padding:1px 10px 10px 10px;
+			margin:20px 0px 0px 0px;
 		}                    
-        .category{
-        	padding:10px 10px 10px 10px;
-        	margin:-1px;
-        	height: 30px;        	
+        .tag1{
+        	margin:5px;    	
         }
-		.badge{
-			float: right;
-		}
     </style>
-	<div id="categorys">
-		<div><h3>category</h3></div>
-		<ul>
-			<div v-for="category in categorys" class="category">
-			{{category.name}}<span class="badge">{{category.count}}</span>
-			</div>  
-		</ul>    
+	<div id="tags">
+		<div><h3>tag</h3></div>
+			<button v-for="tag in tags" class="tag1 btn btn-warning">
+			{{tag.name}} &nbsp<span class="badge">{{tag.count}}</span>
+			</button>     
 	</div>
 	<script type="text/javascript">
     var data4Vue = {
-            categorys: [],
-            category4Add: {},
+            tags: [],
+            tag4Add: {},
     };
  
     //ViewModel
-    var vue2 = new Vue({
-        el: '#categorys',
+    var vue3 = new Vue({
+        el: '#tags',
         data: data4Vue,
         mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
             this.list();
         },       
         methods: {     
             list:function(){
-                var url = "categorys";
+                var url = "tags";
                 axios.get(url).then(function(response) {
-                    vue2.categorys = response.data;
+                    vue3.tags = response.data;
                 })    
             },         
         }

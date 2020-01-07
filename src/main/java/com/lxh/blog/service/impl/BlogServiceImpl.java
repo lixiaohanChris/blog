@@ -37,13 +37,11 @@ public class BlogServiceImpl implements BlogService{
 
 	@Override
 	public int add(Blog blog) {
-		// TODO Auto-generated method stub
 		return blogMapper.add(blog);
 	}
 
 	@Override
 	public Blog get(int id) {
-		// TODO Auto-generated method stub
 		return blogMapper.get(id);
 	}
  

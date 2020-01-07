@@ -9,19 +9,11 @@ import com.lxh.blog.domain.Editor;
 import com.lxh.blog.repository.EditorRepository;
 import com.lxh.blog.service.EditorService;
 
-/**
- * Created on 2018/3/4 0004.
- *
- * @author zlf
- * @email i@merryyou.cn
- * @since 1.0
- */
 @Service
 public class EditorServiceImpl implements EditorService {
 
     @Autowired
     private EditorRepository repository;
-
 
     @Override
     public void save(Editor editor) {

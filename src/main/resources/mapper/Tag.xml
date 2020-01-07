@@ -20,5 +20,10 @@
             update tag set name=#{name}, hp = #{hp} where id=#{id}  
         </update>
         <select id="list" resultType="Tag">
+        	select t.id id,t.name name,count(*) count
+            from tag t 
+            left join tag_item ti on ti.tid = t.id 
+            left join blog b on ti.bid = b.id
+            group by t.name 
         </select> 
     </mapper>
