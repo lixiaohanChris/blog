@@ -17,4 +17,6 @@ public interface CategoryMapper {
     public int update(Category category); 
          
     public List<Category> list();
+    
+    public List<Category> listPlus();
 }

@@ -4,23 +4,45 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
     <mapper namespace="com.lxh.blog.mapper.CategoryMapper">
+    	<resultMap type="Category" id="CategoryBean">
+            <id column="id" property="id" />
+            <result column="name" property="name" />
+            <!-- property: 指的是属性名称, javaType：指的是属性的类型 -->
+            <collection property="Blog" ofType="Blog">
+            	<id column="bid" property="id" />
+            	<result column="title" property="title" />
+     			<result column="createtime" property="createtime" />
+            	<!-- property: 指的是属性名称, javaType：指的是属性的类型 -->
+           		<collection property="tagItems" ofType="TagItem">
+                	<id column="tiid" property="id" />
+                	<association property="tag" javaType="Tag">
+                    	<id column="tid" property="id"/>
+                    	<result column="tname" property="name"/>
+                	</association>               
+            	</collection>
+            </collection>
+        </resultMap>
         <insert id="add" parameterType="Category" >
             insert into category ( name,hp ) values (#{name},#{hp})  
         </insert>
-          
         <delete id="delete" parameterType="Category" >
             delete from category where id= #{id} 
         </delete>
-          
         <select id="get" parameterType="_int" resultType="Category">
             select * from  category  where id= #{id}  
         </select>
-  
         <update id="update" parameterType="Category" >
             update category set name=#{name}, hp = #{hp} where id=#{id}  
         </update>
         <select id="list" resultType="Category">
             select c.id id,c.name name,count(*) count
             from category c left join blog b on b.cid = c.id group by c.name 
-        </select> 
+        </select>
+        <select id="listPlus" resultMap="CategoryBean">
+            select c.id id,c.name name,b.title title,b.createtime createtime,t.name tname
+            from category c 
+            left join blog b on b.cid = c.id
+            left join tagItem ti on b.id = ti.bid
+            left join tag t on t.id = ti.tid 
+        </select>
     </mapper>
