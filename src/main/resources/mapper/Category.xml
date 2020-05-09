@@ -8,12 +8,12 @@
             <id column="id" property="id" />
             <result column="name" property="name" />
             <!-- property: 指的是属性名称, javaType：指的是属性的类型 -->
-            <collection property="Blog" ofType="Blog">
+            <collection property="blogs" ofType="Blog">
             	<id column="bid" property="id" />
             	<result column="title" property="title" />
      			<result column="createtime" property="createtime" />
             	<!-- property: 指的是属性名称, javaType：指的是属性的类型 -->
-           		<collection property="tagItems" ofType="TagItem">
+           		<collection property="tagItems" ofType="TagItem"  javaType="java.util.ArrayList">
                 	<id column="tiid" property="id" />
                 	<association property="tag" javaType="Tag">
                     	<id column="tid" property="id"/>
@@ -42,7 +42,7 @@
             select c.id id,c.name name,b.title title,b.createtime createtime,t.name tname
             from category c 
             left join blog b on b.cid = c.id
-            left join tagItem ti on b.id = ti.bid
+            left join tag_item ti on b.id = ti.bid
             left join tag t on t.id = ti.tid 
         </select>
     </mapper>

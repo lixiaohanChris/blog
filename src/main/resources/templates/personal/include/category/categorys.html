@@ -1,0 +1,101 @@
+<nav class="categorys" th:fragment="html">   
+	<style>
+		#categorys{
+			width: 45%;
+			background-color: #FBFBEA;
+			float: left;
+			box-shadow:5px 5px 5px #888888,5px -5px 5px #888888,-5px 5px 5px #888888,-5px -5px 5px #888888;
+			margin:10px 10px 10px 20%;
+		}           
+        div#pagination{
+            text-align: center;
+            line-height: 100px;
+        }
+        div#pagination a{
+            text-decoration:none;
+        }
+         
+        .disableHref{
+            cursor:default;
+            color:#E5E0E0;
+            text-decoration:none;       
+        }
+        .blog{
+        	width: 100%;
+        	padding:10px 10px 10px 10px;
+        	border:1px solid #F2F1D7;
+        	margin:-1px;
+        	height: 50px;        	
+        }
+        .labels{
+        	float: left;
+        	margin:2px 2px 2px 2px;
+        }
+        .title a{
+        	text-decoration: none;
+        	cursor:pointer;
+        }
+ 		.title a:visited {
+ 			color: orange;
+ 		}
+		.title a:hover {
+			color: green;
+		}
+  		.title a:active {
+  			color: pink
+  		}
+    </style>
+    <script>
+        $(function(){
+            $("a.disableHref").click(function(event){
+                return false;
+//                event.preventDefault();
+            });
+        });
+    </script>
+	<div id="categorys">
+		<h1>Welcome</h1>
+		<div v-for="category in categorys" class="category">
+			<h3>{{category.name}}</h3>
+			<table class="table table-striped">
+				  <thead>
+				     <th>头像</th>
+				     <th>名字</th>
+				     <th>HP</th>
+				     <th>HP</th>
+				  </thead>
+				  <tbody>
+				     <tr v-for="blog in category.blogs">
+				     	<td>{{blog.title}}</h2></td> 
+				        <td>{{blog.createtime}}</td> 
+				        <td>{{category.name}}</td> 
+				        <td><div v-for="tagItem in blog.tagItems">{{tagItem.tag.name}}</div></td> 
+				     </tr>
+				  </tbody> 
+			</table>
+		</div>
+	</div>  
+	<script type="text/javascript">
+    var data4Vue = {
+    		categorys: [],
+    		category4Add: { id: 0, title: '',createtime:'',},
+    };
+ 
+    //ViewModel
+    var vue = new Vue({
+        el: '#categorys',
+        data: data4Vue,
+        mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+            this.list();
+        },       
+        methods: {     
+            list:function(){
+                var url = "categorysPlus";
+                axios.get(url).then(function(response) {;
+                    vue.categorys = response.data;
+                })    
+            },         
+        }
+    });
+    </script>
+</nav>

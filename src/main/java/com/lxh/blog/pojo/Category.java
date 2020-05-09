@@ -1,9 +1,18 @@
 package com.lxh.blog.pojo;
 
+import java.util.List;
+
 public class Category {
 	private int id;
 	private String name;
 	private int count;
+	private List<Blog> blogs;
+	public List<Blog> getBlogs() {
+		return blogs;
+	}
+	public void setBlogs(List<Blog> blogs) {
+		this.blogs = blogs;
+	}
 	public String getName() {
 		return name;
 	}
@@ -12,7 +21,7 @@ public class Category {
 	}
     @Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", count=" + count + "]";
+		return "Category [id=" + id + ", name=" + name + ", count=" + count + ", blogs=" + blogs + "]";
 	}
 	public int getId() {
 		return id;

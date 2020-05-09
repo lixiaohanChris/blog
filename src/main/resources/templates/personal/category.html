@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="personal/include/header::html" ></head>
+<body>
+<style>
+	#right{
+		width: 15%;
+		float: left;
+		margin:10px 10px 10px 1%;
+	}
+</style>
+<div class="background">
+	<div th:replace="personal/include/top::html" ></div>
+	<div th:replace="personal/include/category/categorys::html" ></div>
+	<div id="right">
+	</div>
+</div>
+</body>
